@@ -1,18 +1,29 @@
-import React, { Component } from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import React from "react";
+import { CustomNavbar } from "./components/CustomNavbar";
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Home } from './pages/Home';
+import { About } from './pages/About';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {} from ''
 
 function App() {
   return (
-    <div className="App">
-      <div className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <h2>Welcome to React</h2>
-      </div>
-      <p className="App-intro">
-        To get started, edit <code>src/App.js</code> and save to reload.
-      </p>
-    </div>
+    <>
+      <Router>
+        <CustomNavbar />
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route exact path="/about">
+            <About />
+          </Route>
+          <Route exact path="/profile">
+
+          </Route>
+        </Switch>
+      </Router>
+    </>
   );
 }
 
