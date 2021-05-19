@@ -13,10 +13,10 @@ import { SecretPage } from './pages/SecretPage';
 function App() {
   return (
     <Auth0Provider 
-      domain="dev-2gljxr6t.au.auth0.com"
-      clientId= "ubeK9inXZ6v5ALnaQWPMGvWaB7s76wd6"
+      domain={process.env.REACT_APP_AUTH0_DOMAIN}
+      clientId={process.env.REACT_APP_AUTH0_CLIENT_ID}
       redirectUri={window.location.origin}
-      audience="https://dev-2gljxr6t.au.auth0.com/api/v2/"
+      audience={process.env.REACT_APP_AUTH0_AUDIENCE}
       scope="all"
     >
       <Router>

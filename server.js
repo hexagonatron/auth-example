@@ -5,6 +5,7 @@ const app = express();
 const jwt = require('express-jwt');
 const jwksRsa = require('jwks-rsa');
 require("dotenv").config();
+const fetch = require('node-fetch');
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -13,15 +14,12 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
-console.log(process.env.AUTH0_DOMAIN);
-console.log(process.env.AUTH0_AUDIENCE);
-
 const checkJwt = jwt({
   secret: jwksRsa.expressJwtSecret({
     cache: true,
     rateLimit: true,
     jwksRequestsPerMinute: 5,
-    jwksUri: "https://dev-2gljxr6t.au.auth0.com/.well-known/jwks.json"
+    jwksUri: `${process.env.AUTH0_DOMAIN}.well-known/jwks.json`
   }),
   audience: process.env.AUTH0_AUDIENCE,
   issuer: [ process.env.AUTH0_DOMAIN ],
@@ -35,6 +33,14 @@ app.get("/api/noAuth", (req, res) => {
 app.get("/api/withAuth", checkJwt, (req, res) => {
   console.log(req.user);
   res.json({result: "Authed successfully", user: req.user});
+});
+
+app.get("/api/user", checkJwt, async (req, res) => {
+  const result = await fetch(`${process.env.AUTH0_DOMAIN}userinfo`, {
+    headers: {Authorization: req.headers.authorization}
+  }).then(res => res.json());
+  console.log(result);
+  res.json({result: "Authed successfullt", userInfo: result});
 });
 
 
