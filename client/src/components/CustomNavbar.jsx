@@ -1,15 +1,16 @@
 import React from "react";
 import { useLocation, Link } from "react-router-dom";
 import { Nav, Navbar } from "react-bootstrap";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export const CustomNavbar = () => {
   const location = useLocation();
-  console.log(location);
+  const { loginWithRedirect, isAuthenticated, logout, user } = useAuth0();
+  console.log({ user, isAuthenticated });
   return (
     <>
-      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-        <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+      <Navbar collapseOnSelect bg="dark" variant="dark">
+        <Navbar.Brand href="/">React-Bootstrap</Navbar.Brand>
         <Nav className="mr-auto">
           <Nav.Link as={Link} to={"/"}>
             Home
@@ -22,9 +23,11 @@ export const CustomNavbar = () => {
           </Nav.Link>
         </Nav>
         <Nav>
-          <Nav.Link as={Link} to={"#"}>
-            Login
-          </Nav.Link>
+          {!isAuthenticated ? (
+            <Nav.Link onClick={() => loginWithRedirect()}>Login</Nav.Link>
+          ) : (
+            <Nav.Link onClick={() => logout()}>Logout</Nav.Link>
+          )}
         </Nav>
       </Navbar>
     </>
