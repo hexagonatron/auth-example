@@ -26,7 +26,7 @@ export const CustomNavbar = () => {
           {!isAuthenticated ? (
             <Nav.Link onClick={() => loginWithRedirect()}>Login</Nav.Link>
           ) : (
-            <Nav.Link onClick={() => logout()}>Logout</Nav.Link>
+            <Nav.Link onClick={() => logout({returnTo: window.location.origin})}>Logout</Nav.Link>
           )}
         </Nav>
       </Navbar>
