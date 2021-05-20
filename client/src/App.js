@@ -11,6 +11,11 @@ import { SecretPage } from './pages/SecretPage';
 
 
 function App() {
+  console.log({
+    domain: process.env.REACT_APP_AUTH0_DOMAIN,
+    client: process.env.REACT_APP_AUTH0_CLIENT_ID,
+    audience: process.env.REACT_APP_AUTH0_AUDIENCE,
+  })
   return (
     <Auth0Provider 
       domain={process.env.REACT_APP_AUTH0_DOMAIN}

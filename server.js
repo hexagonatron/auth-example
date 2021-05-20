@@ -40,7 +40,7 @@ app.get("/api/user", checkJwt, async (req, res) => {
     headers: {Authorization: req.headers.authorization}
   }).then(res => res.json());
   console.log(result);
-  res.json({result: "Authed successfullt", userInfo: result});
+  res.json({result: "Authed successfully", userInfo: result});
 });
 
 

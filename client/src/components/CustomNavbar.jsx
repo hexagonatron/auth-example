@@ -4,7 +4,6 @@ import { Nav, Navbar } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 
 export const CustomNavbar = () => {
-  const location = useLocation();
   const { loginWithRedirect, isAuthenticated, logout, user } = useAuth0();
   console.log({ user, isAuthenticated });
   return (
